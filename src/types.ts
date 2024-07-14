@@ -4,5 +4,5 @@ export type Todo = {
   id: TodoId
   title: string
   completed: boolean
-  dueDate?: string
+  dueDate: string
 }

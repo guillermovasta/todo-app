@@ -1,16 +1,5 @@
-import { createContext, useContext } from 'react'
-import { TodosType } from './hooks/use-todos'
-
-const TodosContext = createContext<TodosType | undefined>(undefined)
-
-type TodosProviderProps = {
-  children: React.ReactNode
-  value: TodosType
-}
-
-export const TodosProvider = ({ children, value }: TodosProviderProps) => {
-  return <TodosContext.Provider value={value}>{children}</TodosContext.Provider>
-}
+import { useContext } from 'react'
+import { TodosContext } from './provider'
 
 export const useTodosContext = () => {
   const context = useContext(TodosContext)

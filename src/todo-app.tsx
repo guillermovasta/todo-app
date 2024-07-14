@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { useTodos } from './hooks/use-todos'
 import { TodoList } from './components/todo-list'
-import { TodosProvider } from './context'
+import { TodosProvider } from './provider'
 
 const TodoApp = () => {
   const todos = useTodos()
@@ -11,7 +11,7 @@ const TodoApp = () => {
       id: uuidv4(),
       title: '',
       completed: false,
-      dueDate: undefined,
+      dueDate: '',
     })
   }
 
