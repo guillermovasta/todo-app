@@ -5,6 +5,7 @@ import {
   TodoFilter,
   TodoOrderBy,
   TodoOrderDirection,
+  TodoState,
 } from '../reducer'
 import { Todo, TodoId } from '../types'
 
@@ -17,6 +18,16 @@ const initFn = (initialValue = initialState) => {
   } catch {
     return initialValue
   }
+}
+
+export type TodosType = TodoState & {
+  addTodo: (todo: Todo) => void
+  removeTodo: (id: TodoId) => void
+  updateTodo: (updatedTodo: Todo) => void
+  toggleCompleteTodo: (id: TodoId) => void
+  setTodoFilter: (filter: TodoFilter) => void
+  setTodoOrderBy: (orderBy: TodoOrderBy) => void
+  setTodoOrderDirection: (orderDirection: TodoOrderDirection) => void
 }
 
 export const useTodos = () => {
@@ -32,6 +43,8 @@ export const useTodos = () => {
       addTodo: (todo: Todo) => dispatch({ type: 'add_todo', payload: todo }),
       removeTodo: (id: TodoId) =>
         dispatch({ type: 'remove_todo', payload: id }),
+      updateTodo: (updatedTodo: Todo) =>
+        dispatch({ type: 'update_todo', payload: updatedTodo }),
       toggleCompleteTodo: (id: TodoId) =>
         dispatch({ type: 'toggle_complete_todo', payload: id }),
       setTodoFilter: (filter: TodoFilter) =>

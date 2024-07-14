@@ -23,6 +23,7 @@ export const initialState: TodoState = {
 const actionTypes = [
   'add_todo',
   'remove_todo',
+  'update_todo',
   'toggle_complete_todo',
   'set_todo_filter',
   'set_todo_order_by',
@@ -43,6 +44,11 @@ type TodoAddAction = TodoActionBase & {
 type TodoRemoveAction = TodoActionBase & {
   type: 'remove_todo'
   payload: TodoId
+}
+
+type TodoUpdateAction = TodoActionBase & {
+  type: 'update_todo'
+  payload: Todo
 }
 
 type TodoToggleCompleteAction = TodoActionBase & {
@@ -68,6 +74,7 @@ type TodoSetOrderDirectionAction = TodoActionBase & {
 export type TodoAction =
   | TodoAddAction
   | TodoRemoveAction
+  | TodoUpdateAction
   | TodoToggleCompleteAction
   | TodoSetFilterAction
   | TodoSetOrderByAction
@@ -85,6 +92,13 @@ export const reducer = (state: TodoState, action: TodoAction): TodoState => {
         ...state,
         todos: state.todos.filter((todo) => {
           return todo.id !== action.payload
+        }),
+      }
+    case 'update_todo':
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          return todo.id === action.payload.id ? action.payload : todo
         }),
       }
     case 'toggle_complete_todo':
