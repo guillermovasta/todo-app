@@ -11,7 +11,11 @@ const TodoForm: FC<TodoFormProps> = ({ todo }) => {
   const { updateTodo, removeTodo } = useTodosContext()
 
   return (
-    <form className="flex items-center space-x-4 bg-white rounded-xl p-6">
+    <form
+      className="flex items-center space-x-4 bg-white rounded-xl p-6"
+      onSubmit={(e) => e.preventDefault()}
+      id={`todo-form-${todo.id}`}
+    >
       <input
         type="checkbox"
         name="completed"
@@ -48,7 +52,7 @@ const TodoForm: FC<TodoFormProps> = ({ todo }) => {
         value={todo.dueDate}
         className="outline-none"
       />
-      <button onClick={() => removeTodo(todo.id)}>
+      <button onClick={() => removeTodo(todo.id)} type="button">
         <MinusIcon />
       </button>
     </form>
