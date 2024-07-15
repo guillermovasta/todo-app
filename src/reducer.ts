@@ -1,6 +1,6 @@
 import { Todo, TodoId } from './types'
 
-export type TodoFilter = 'all_todo' | 'active_todos' | 'completed_todos'
+export type TodoFilter = 'all_todos' | 'completed_todos'
 
 export type TodoOrderBy = 'dueDate' | 'title'
 
@@ -15,7 +15,7 @@ export type TodoState = {
 
 export const initialState: TodoState = {
   todos: [],
-  filter: 'all_todo',
+  filter: 'all_todos',
   orderBy: 'title',
   orderDirection: 'desc',
 }
@@ -28,6 +28,7 @@ const actionTypes = [
   'set_todo_filter',
   'set_todo_order_by',
   'set_todo_order_direction',
+  'reorder_todos',
 ] as const
 
 type ActionType = (typeof actionTypes)[number]
@@ -71,6 +72,11 @@ type TodoSetOrderDirectionAction = TodoActionBase & {
   payload: TodoOrderDirection
 }
 
+type ReorderTodosAction = TodoActionBase & {
+  type: 'reorder_todos'
+  payload: Todo[]
+}
+
 export type TodoAction =
   | TodoAddAction
   | TodoRemoveAction
@@ -79,6 +85,7 @@ export type TodoAction =
   | TodoSetFilterAction
   | TodoSetOrderByAction
   | TodoSetOrderDirectionAction
+  | ReorderTodosAction
 
 export const reducer = (state: TodoState, action: TodoAction): TodoState => {
   switch (action.type) {
@@ -124,6 +131,11 @@ export const reducer = (state: TodoState, action: TodoAction): TodoState => {
       return {
         ...state,
         orderDirection: action.payload,
+      }
+    case 'reorder_todos':
+      return {
+        ...state,
+        todos: action.payload,
       }
     default:
       return state

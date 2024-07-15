@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { TodoApp } from './todo-app.tsx'
+import { TodoApp } from './components/todo-app.tsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+import { MinusIcon } from 'lucide-react'
 import { useTodosContext } from '../context'
 import { Todo } from '../types'
 
@@ -5,11 +7,11 @@ type TodoFormProps = {
   todo: Todo
 }
 
-const TodoForm = ({ todo }: TodoFormProps) => {
+const TodoForm: FC<TodoFormProps> = ({ todo }) => {
   const { updateTodo, removeTodo } = useTodosContext()
 
   return (
-    <form className="flex items-center space-x-4">
+    <form className="flex items-center space-x-4 bg-white rounded-xl p-6">
       <input
         type="checkbox"
         name="completed"
@@ -20,7 +22,7 @@ const TodoForm = ({ todo }: TodoFormProps) => {
           })
         }}
         checked={todo.completed}
-        className=""
+        className="w-8 h-8"
       />
       <input
         type="text"
@@ -32,7 +34,7 @@ const TodoForm = ({ todo }: TodoFormProps) => {
           })
         }}
         value={todo.title}
-        className="bg-slate-50 flex-grow"
+        className="flex-grow text-2xl outline-none font-sans font-bold"
       />
       <input
         type="date"
@@ -44,9 +46,11 @@ const TodoForm = ({ todo }: TodoFormProps) => {
           })
         }}
         value={todo.dueDate}
-        className="bg-slate-50"
+        className="outline-none"
       />
-      <button onClick={() => removeTodo(todo.id)}>x</button>
+      <button onClick={() => removeTodo(todo.id)}>
+        <MinusIcon />
+      </button>
     </form>
   )
 }

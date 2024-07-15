@@ -1,17 +1,27 @@
-import { Todo } from '../types'
+import type { FC } from 'react'
+import { Reorder } from 'framer-motion'
+import { useTodosContext } from '../context'
 import { TodoItem } from './todo-item'
 
-type TodoListProps = {
-  todos: Todo[]
-}
+const TodoList: FC = () => {
+  const { todos, reorderTodos, filter } = useTodosContext()
 
-const TodoList = ({ todos }: TodoListProps) => {
+  const filteredTodos = [...todos].filter((todo) => {
+    const isCompleted = todo.completed && filter === 'completed_todos'
+    const isAll = filter === 'all_todos'
+    return isCompleted || isAll
+  })
+
   return (
-    <ul>
-      {todos.map((todo) => {
+    <Reorder.Group
+      values={filteredTodos}
+      onReorder={(reorderedTodos) => reorderTodos(reorderedTodos)}
+      className="space-y-6"
+    >
+      {filteredTodos.map((todo) => {
         return <TodoItem key={todo.id} todo={todo} />
       })}
-    </ul>
+    </Reorder.Group>
   )
 }
 

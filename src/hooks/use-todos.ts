@@ -28,6 +28,7 @@ export type TodosType = TodoState & {
   setTodoFilter: (filter: TodoFilter) => void
   setTodoOrderBy: (orderBy: TodoOrderBy) => void
   setTodoOrderDirection: (orderDirection: TodoOrderDirection) => void
+  reorderTodos: (reorderedTodos: Todo[]) => void
 }
 
 export const useTodos = () => {
@@ -53,6 +54,8 @@ export const useTodos = () => {
         dispatch({ type: 'set_todo_order_by', payload: orderBy }),
       setTodoOrderDirection: (orderDirection: TodoOrderDirection) =>
         dispatch({ type: 'set_todo_order_direction', payload: orderDirection }),
+      reorderTodos: (reorderedTodos: Todo[]) =>
+        dispatch({ type: 'reorder_todos', payload: reorderedTodos }),
     }),
     [state]
   )
